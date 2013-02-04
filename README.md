@@ -15,7 +15,7 @@ Perfect for pages like "My Account", "Login", "Signup" which must be implemented
 
 ## F.A.Q.
 
-### What is a ** standalone page** ?
+### What is a *standalone page* ?
 > It is a page that has a unique behavior and only exists once over the website.
 > Exemple: 
 > * Signup
