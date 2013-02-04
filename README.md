@@ -9,6 +9,23 @@ An easy way to deploy standalone pages by just uploading new pages template file
 
 ## Usage
 
+When you need to create a standalone page in WordPress instead of creating the "page-<MY_PAGE_NAME>.php" file, use the "page-standalone-<MY_PAGE_NAME>.php" file and when you deploy the new version of the theme on the new server, the plugin will magicaly create pages for each file matching the pattern "page-standalone-XXX.php".
+
+Perfect for pages like "My Account", "Login", "Signup" which must be implemented as a page template but actually are standalone pages.
+
+## F.A.Q.
+
+### What is a ** standalone page** ?
+> It is a page that has a unique behavior and only exists once over the website.
+> Exemple: 
+> * Signup
+> * Login
+> * My account
+> * etc.
+
+
+## Installation
+
 
 1. Copy the `standalon-pages` directory into your `wp-content/plugins` directory
 2. Navigate to the "Plugins" dashboard page
