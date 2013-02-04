@@ -1,28 +1,25 @@
-# WordPress Plugin Boilerplate
+# WordPress Plugin Standalone Pages
 
-The WordPress Plugin Boilerplate serves as a foundation off of which to build your WordPress plugins. 
+An easy way to deploy standalone pages by just uploading new pages template files.
 
 ## Features
 
-* The Plugin Boilerplate is fully-based on the WordPress [Plugin API](http://codex.wordpress.org/Plugin_API)
-* Uses [PHPDoc](http://en.wikipedia.org/wiki/PHPDoc) conventions for easily following the code
-* Liberal use of `TODO` to guide you through what you need to change
-* Uses a strict file organization scheme to make sure the assets are easily maintainable
+* Automaticly create WordPress pages for each "standalone template" present in the curent theme.
+* Does not override any changes to the "standalone page" made in the admin. Like Page title, or Hierarchy.
 
 ## Usage
 
-The WordPress Plugin Boilerplate is ready to activate as-is (though it includes no real functionality).
 
-1. Copy the `plugin-boilerplate` directory into your `wp-content/plugins` directory
+1. Copy the `standalon-pages` directory into your `wp-content/plugins` directory
 2. Navigate to the "Plugins" dashboard page
-3. Locate the menu item that reads "TODO"
+3. Locate the menu item that reads "Standalon pages"
 4. Click on "Activate"
 
-This will activate the WordPress Plugin Boilerplate. Because the Boilerplate has no real functionality, nothing will be added to WordPress; however, this demonstrates exactly how your plugin should behave as you're working with it.
+This will activate the WordPress Plugin Standalone Pages and create the missing standalone page.
 
 ## License
 
-The WordPress Plugin Boilerplate is licensed under the GPL v2 or later.
+The WordPress Plugin Standalon Pages is licensed under the GPL v2 or later.
 
 > This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
@@ -39,12 +36,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 ## Changelog
 
-### 1.0 (29 November 2012)
+### 0.1 (4 February 2013)
 
-* Official Release
+* Proof of concept release
 
 ## Author Information
 
-The WordPress Plugin Boilerplate was originally started and is maintained by [Tom McFarlin](http://twitter.com/tommcfarlin/). 
-
-The project is open-source and receives contributions from awesome WordPress Developers throughout the world.
+The WordPress Plugin Standalone Pages was originally started and is maintained by [Benjamin AZAN](http://benjaminazan.com). 
