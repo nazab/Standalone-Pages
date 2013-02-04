@@ -19,7 +19,7 @@ This will activate the WordPress Plugin Standalone Pages and create the missing 
 
 ## License
 
-The WordPress Plugin Standalon Pages is licensed under the GPL v2 or later.
+The WordPress Plugin Standalone Pages is licensed under the GPL v2 or later.
 
 > This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
