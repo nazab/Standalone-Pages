@@ -2,6 +2,11 @@
 
 An easy way to deploy standalone pages by just uploading new pages template files.
 
+## Warning
+
+This is only a proof of concept and is not ready for production.
+DO NOT USE IN PRODUCTION ! Yet.
+
 ## Features
 
 * Automaticly create WordPress pages for each "standalone template" present in the curent theme.
