@@ -52,8 +52,6 @@ class StandalonePages {
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
 		register_uninstall_hook( __FILE__, array( 'StandalonePages', 'uninstall' ) );
-		
-	    add_action( 'wp_loaded', array( $this, 'action_create_missing_standalone_pages' ) );
 
 	} // end constructor
 	
@@ -152,7 +150,6 @@ class StandalonePages {
 			    'meta_value' => basename($v)
 			);
 			$pages = get_pages($args);
-			//var_dump($pages);
 			
 			if(is_array($pages) && count($pages) == 0) {
 				// Their is no page in the database with the standalon template.
@@ -180,11 +177,44 @@ class StandalonePages {
 		}
 	} // end action_create_missing_standalone_pages
 	
+	static function create_standalone_page($_template_name,$_user_id = NULL) {
+		// Get the template name
+		$tpl_path = get_stylesheet_directory().'/page-standalone-'.$_template_name.'.php';
+		if(is_file($tpl_path) === false) {
+			return false;
+		}
+		$data_file = get_file_data($tpl_path,array('tpl_name'=>'Template Name'));
+		if(empty($data_file['tpl_name'])) {
+			// TODO log info to the wp-admin.
+			return false;
+		}
+		$tpl_name = $data_file['tpl_name'];
+		// get first admin
+		if($_user_id === NULL) {
+			$admin_list = get_users(array('orderby'=>'ID','role'=>'administrator'));
+			if(isset($admin_list[0]) && isset($admin_list[0]->ID)) {
+				$_user_id = $admin_list[0]->ID;
+			}
+		}
+		// Create the page
+		$my_post = array(
+		  'post_title'    	=> $tpl_name,
+		  'post_content'  	=> 'This page has been created automaticaly as it use a standalone template. You can modify anything you want but any removal or unpublishing will makes this page reapear over and over. To fix this, use a non standalone template file.',
+		  'post_status'   	=> 'publish',
+		  'post_author'   	=> $_user_id,
+		  'post_type'		=> 'page',
+		);
+		// Insert the post into the database
+		$page_id = wp_insert_post( $my_post,true);
+		update_post_meta($page_id,'_wp_page_template','page-standalone-'.$_template_name.'.php');
+		return $page_id;
+	}
+
 	/**
 	* @param string $_template_name	The standalone page template name (page-standalone-<TEMPLATE_NAME>.php)
 	* Returns the full URL of the standalone page requested. If it doesn't exist, it return false.
 	*/
-	function get_standalone_page_uri($_template_name) {
+	static function get_standalone_page_uri($_template_name,$_user_id = NULL) {
 		$args = array(
 			'sort_order' => 'DESC',
 			'sort_column' => 'post_modified',
@@ -196,10 +226,16 @@ class StandalonePages {
 		    'meta_value' => 'page-standalone-'.$_template_name.'.php'
 		);
 		$pages = get_pages($args);
-		if(isset($pages[0])) {
+		if(isset($pages[0]) && isset($pages[0]->ID)) {
 			return home_url().'/'.get_page_uri($pages[0]->ID);
 		} else {
-			return false;
+			// Try to create the missing standalone page
+			$new_standalone_page  = self::create_standalone_page($_template_name,$_user_id);
+			if($new_standalone_page !== false) {
+				return self::get_standalone_page_uri($_template_name,$_user_id);
+			} else {
+				return false;
+			}
 		}
 	} // end get_standalone_page_uri
 } // end class
