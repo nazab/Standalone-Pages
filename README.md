@@ -14,11 +14,11 @@ DO NOT USE IN PRODUCTION ! Yet.
 
 ## F.A.Q.
 
-### How to create a Standalon Page ?
+### How to create a Standalone Page ?
 > Just create a page template filefollowing the namming pattern: `page-standalone-<TEMPLATE_NAME>.php`.
 > This template works exactly like a standard WordPress page template.
 
-### Howto make a link o a standalone page ?
+### Howto make a link to a Standalone page ?
 
 > Simply use the `StandalonePages::get_standalone_page_uri(<TEMPLATE_NAME>)` static method to get the page full URL of the requested template.
 
