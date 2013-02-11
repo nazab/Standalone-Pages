@@ -127,56 +127,6 @@ class StandalonePages {
 	
 	} // end register_plugin_scripts
 	
-	/*--------------------------------------------*
-	 * Core Functions
-	 *---------------------------------------------*/
-	
-	/**
- 	 * Check for missing standalone page and add them if needed.
-	 */
-	function action_create_missing_standalone_pages() {
-    	// Get the page-standalone-*.php files to cathc the standalone one
-		$page_template_list = glob(get_template_directory().'/page-standalone-*.php');
-		foreach($page_template_list as $v) {
-			// Check if this template file has page in the database?
-			$args = array(
-				'sort_order' => 'DESC',
-				'sort_column' => 'post_modified',
-				'number' => 1,
-				'offset' => 0,
-				'post_type' => 'page',
-				'post_status' => 'publish,draft,pending',
-				'meta_key' => '_wp_page_template',
-			    'meta_value' => basename($v)
-			);
-			$pages = get_pages($args);
-			
-			if(is_array($pages) && count($pages) == 0) {
-				// Their is no page in the database with the standalon template.
-				// We extract the Template Name atribute of the standalone template.
-				$template_content = file_get_contents($v);
-				if ( preg_match( '|Template Name:(.*)$|mi', $template_content, $name )) {
-					$my_post = array(
-					  'post_title'    	=> $name[1],
-					  'post_content'  	=> 'This page has been created automaticaly as it use a standalone template. You can modify anything you want but any removal or unpublishing will makes this page reapear over and over. To fix this, use a non standalone template file.',
-					  'post_status'   	=> 'publish',
-					  'post_author'   	=> 1,
-					  'post_type'		=> 'page',
-					);					
-					// Insert the post into the database
-					$page_id = wp_insert_post( $my_post,true);
-					update_post_meta($page_id,'_wp_page_template',basename($v));
-				} else {
-					// No Template Name: found int the template file or file was not found.
-					// TODO: Log error somewhere.
-				}
-			} else {
-				// This standalone page already has a page published.
-			}
-			
-		}
-	} // end action_create_missing_standalone_pages
-	
 	static function create_standalone_page($_template_name,$_user_id = NULL) {
 		// Get the template name
 		$tpl_path = get_stylesheet_directory().'/page-standalone-'.$_template_name.'.php';
